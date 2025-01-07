@@ -8,19 +8,19 @@
 import SwiftUI
 
 @ViewBuilder
-func CardView(value: DateValue, currentDate: Date, bills: [Bill]) -> some View {
+func CardView(value: DateValue, currentDate: Date, bills: [BillMetaData]) -> some View {
     VStack {
         if value.day != -1 {
             if let bill = bills.first(where: { bill in
-                return isSameDay(date1: bill.date, date2: value.date)
+                return isSameDay(date1: bill.billDate, date2: value.date)
             }) {
                 Text("\(value.day)")
                     .font(.title3.bold())
-                    .foregroundColor(isSameDay(date1: bill.date, date2: currentDate) ? .white : .black)
+                    .foregroundColor(isSameDay(date1: bill.billDate, date2: currentDate) ? .white : .black)
                     .frame(maxWidth: .infinity)
                 Spacer()
                 Circle()
-                    .fill(isSameDay(date1: bill.date, date2: value.date) ? .red : .white)
+                    .fill(isSameDay(date1: bill.billDate, date2: value.date) ? .red : .white)
                     .frame(width: 8, height: 8)
             } else {
                 Text("\(value.day)")

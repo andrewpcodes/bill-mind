@@ -56,16 +56,14 @@ struct DatePicker: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            
-            // Dates
-            
+
             LazyVGrid(columns: columns, spacing: 15) {
                 ForEach(extractDate(currentMonth: currentMonth)) { day in
-                    CardView(value: day, currentDate: currentDate, bills: [Bill(id: UUID(), name: "Test", amount: 1.0, date: Date())])
+                    CardView(value: day, currentDate: currentDate, bills: bills)
                         .background(
+                            //TODO: Fix visual issue with capsule being too big or small on different devices
                             Capsule()
                                 .fill(isSameDay(date1: day.date, date2: currentDate) ? Color.gray.opacity(0.8) : Color.white)
-                                .padding(.horizontal)
                                 .frame(maxWidth: .infinity)
                         )
                         .onTapGesture {
@@ -76,6 +74,25 @@ struct DatePicker: View {
             .onChange(of: currentMonth) { oldMonth, newMonth in
                 currentDate = getCurrentMonth(currentMonth: newMonth)
             }
+            
+            VStack(spacing: 20) {
+                Text("Bills")
+                    .font(.title2.bold())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if let bill = bills.first(where: { bill in
+                    return isSameDay(date1: bill.billDate, date2: currentDate)
+                }) {
+                    ForEach(bill.bill) { bill in
+                        BillView(bill: bill)
+                    }
+                }
+                else {
+                    Text("No Bills Found")
+                }
+            }
+            .padding()
+            .padding(.top, 25)
         }
     }
     

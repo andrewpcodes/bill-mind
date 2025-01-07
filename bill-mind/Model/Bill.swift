@@ -10,7 +10,7 @@ import SwiftUI
 struct Bill: Identifiable {
     let id: UUID
     let name: String
-    let amount: Double
+    let amount: Decimal
     let date: Date
 }
 

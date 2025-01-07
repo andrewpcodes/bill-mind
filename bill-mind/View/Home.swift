@@ -16,6 +16,23 @@ struct Home: View {
             VStack(spacing: 20) {
                 DatePicker(currentDate: $currentDate)
             }
+            .padding(.vertical)
+        }
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                Button {
+                    
+                } label: {
+                    Text("Add Bill")
+                        .fontWeight(.bold)
+                        .padding(.vertical)
+                        .frame(maxWidth: .infinity)
+                        .background(.secondary, in: Capsule())
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 10)
+            .background(.ultraThinMaterial)
         }
     }
 }
