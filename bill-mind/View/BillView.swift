@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-//TODO: Add a way to add a bill
 //TODO: Add a way to remove a bill
 
 @ViewBuilder
@@ -18,7 +17,9 @@ func BillView(bill: Bill) -> some View {
             Text(bill.name)
                 .font(.title2.bold())
             Spacer()
-            Text((bill.amount), format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+            VStack {
+                Text((bill.amount), format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+            }
         }
     }
     .padding(.vertical, 10)
@@ -36,5 +37,5 @@ func formateDate(date: Date) -> String {
 }
 
 #Preview {
-    BillView(bill: Bill.init(id: UUID(), name: "Test Bill", amount: 10.99, date: Date()))
+    BillView(bill: Bill.init(name: "Test Bill", amount: 10.99, date: Date()))
 }
